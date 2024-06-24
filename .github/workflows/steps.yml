@@ -1,0 +1,27 @@
+name: Push HTML File
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Copy index.html to workspace
+        run: cp index.html $GITHUB_WORKSPACE
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "fullstack9020@gmail.com"
+          git config --global user.name "febe89"
+          git add index.html
+          git commit -m "Update index.html"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
